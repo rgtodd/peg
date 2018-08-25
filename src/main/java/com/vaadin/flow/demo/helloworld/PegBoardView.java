@@ -15,6 +15,8 @@
  */
 package com.vaadin.flow.demo.helloworld;
 
+import com.peg.model.PegBoard;
+import com.peg.model.PegState;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -30,36 +32,44 @@ import com.vaadin.flow.router.Route;
 public class PegBoardView extends VerticalLayout {
 	private static final long serialVersionUID = 1L;
 
+	private Icon[] m_icons;
+	private PegBoard m_pegBoard;
+
 	public PegBoardView() {
 
-		HorizontalLayout row1;
-		{
-			Icon peg1 = VaadinIcon.CIRCLE.create();
-			row1 = new HorizontalLayout(peg1);
-//			row1.setJustifyContentMode(JustifyContentMode.EVENLY);
-
+		m_icons = new Icon[15];
+		for (int idx = 0; idx < 15; ++idx) {
+			m_icons[idx] = new Icon(VaadinIcon.CLOSE);
 		}
 
-		HorizontalLayout row2;
-		{
-			Icon peg2 = VaadinIcon.CIRCLE.create();
-			Icon peg3 = VaadinIcon.CIRCLE.create();
-			row2 = new HorizontalLayout(peg2, peg3);
-//			row1.setJustifyContentMode(JustifyContentMode.EVENLY);
+		HorizontalLayout row1 = new HorizontalLayout(m_icons[0]);
+		HorizontalLayout row2 = new HorizontalLayout(m_icons[1], m_icons[2]);
+		HorizontalLayout row3 = new HorizontalLayout(m_icons[3], m_icons[4], m_icons[5]);
+		HorizontalLayout row4 = new HorizontalLayout(m_icons[6], m_icons[7], m_icons[8], m_icons[9]);
+		HorizontalLayout row5 = new HorizontalLayout(m_icons[10], m_icons[11], m_icons[12], m_icons[13], m_icons[14]);
+
+		add(row1, row2, row3, row4, row5);
+
+		m_pegBoard = new PegBoard();
+		m_pegBoard.regsterPegStateListener((position, pegState) -> {
+			m_icons[position].getElement().setAttribute("icon",
+					"vaadin:" + getVaadinIcon(pegState).name().toLowerCase().replace('_', '-'));
+		});
+
+		m_pegBoard.initialize();
+
+		setHeight("100vh"); // 100% of the viewport height.
+		setAlignItems(Alignment.CENTER);
+	}
+
+	private VaadinIcon getVaadinIcon(PegState pegState) {
+		switch (pegState) {
+		case OCCUPIED:
+			return VaadinIcon.CIRCLE;
+		case UNOCCUPIED:
+			return VaadinIcon.CIRCLE_THIN;
+		default:
+			return VaadinIcon.CLOSE;
 		}
-
-		HorizontalLayout row3;
-		{
-			Icon peg4 = VaadinIcon.CIRCLE.create();
-			Icon peg5 = VaadinIcon.CIRCLE.create();
-			Icon peg6 = VaadinIcon.CIRCLE.create();
-			row3 = new HorizontalLayout(peg4, peg5, peg6);
-//			row1.setJustifyContentMode(JustifyContentMode.EVENLY);
-		}
-
-		this.add(row1, row2, row3);
-
-		this.setHeight("100vh"); // 100% of the viewport height.
-		this.setAlignItems(Alignment.CENTER);
 	}
 }
