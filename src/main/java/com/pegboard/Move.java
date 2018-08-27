@@ -1,5 +1,12 @@
 package com.pegboard;
 
+/**
+ * 
+ * Represents a possible peg board move.
+ * 
+ * @author rtodd
+ *
+ */
 public class Move {
 
 	private int m_positionFrom;
@@ -22,6 +29,12 @@ public class Move {
 
 	public int getPositionTo() {
 		return m_positionTo;
+	}
+
+	@Override
+	public String toString() {
+		return "Move [m_positionFrom=" + m_positionFrom + ", m_positionOver=" + m_positionOver + ", m_positionTo="
+				+ m_positionTo + "]";
 	}
 
 	@Override

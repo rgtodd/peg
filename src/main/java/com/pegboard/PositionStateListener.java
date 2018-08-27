@@ -1,7 +1,14 @@
 package com.pegboard;
 
+/**
+ * 
+ * Defines a listener to handle changes to position state changes.
+ * 
+ * @author rtodd
+ *
+ */
 public interface PositionStateListener {
 
-	public void onPegStateUpdate(int position, PositionState pegState);
+	public void onPositionStateUpdate(int position, PositionState pegState);
 
 }

@@ -3,6 +3,14 @@ package com.pegboard;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * 
+ * Maintains a collection of {@link Move} objects. Moves can be retrieved based
+ * on their from and to positions.
+ * 
+ * @author rtodd
+ *
+ */
 public class MoveSet {
 
 	private Set<Move> m_moves;

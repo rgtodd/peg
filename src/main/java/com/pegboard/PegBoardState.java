@@ -1,5 +1,12 @@
 package com.pegboard;
 
+/**
+ * 
+ * Represents the state of a peg board.
+ * 
+ * @author rtodd
+ *
+ */
 public class PegBoardState {
 
 	private static final char OPEN = '0';
@@ -67,6 +74,11 @@ public class PegBoardState {
 		String state = sb.toString();
 
 		return new PegBoardState(state);
+	}
+
+	@Override
+	public String toString() {
+		return "PegBoardState [m_state=" + m_state + "]";
 	}
 
 	@Override

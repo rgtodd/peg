@@ -2,8 +2,28 @@ package com.pegboard;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
+/**
+ * 
+ * A controller used to manage a peg board. Views can use this controller as
+ * follows:
+ * 
+ * <ol>
+ * <li>Call {@link #regsterPositionStateListener(PositionStateListener)}. This
+ * event handler is called whenever the state of peg board position changes. The
+ * view should update the board accordingly.</li>
+ * <li>Call {@link #initialize()}. This resets the board and raises position
+ * state events for all board positions.</li>
+ * <li>Call {@link #click(int)} in response to user inputs.</li>
+ * </ol>
+ * 
+ * @author rtodd
+ *
+ */
 public class PegBoardController {
+
+	private static final Logger LOGGER = Logger.getLogger(PegBoardController.class.getName());
 
 	private static final int NULL_POSITION = -1;
 
@@ -54,7 +74,7 @@ public class PegBoardController {
 	}
 
 	private void notifyPositionStateListeners(int position) {
-		m_positionStateListeners.forEach(listener -> listener.onPegStateUpdate(position, getPegState(position)));
+		m_positionStateListeners.forEach(listener -> listener.onPositionStateUpdate(position, getPegState(position)));
 	}
 
 	private void moveTo(int position) {
@@ -77,10 +97,16 @@ public class PegBoardController {
 			Move move = m_allPossibleMoves.getMove(m_selectedPosition, position);
 			if (move != null) {
 				if (m_pegBoardState.isValid(move)) {
+
+					LOGGER.info("Applying " + move + " to " + m_pegBoardState);
+
 					m_pegBoardState = m_pegBoardState.apply(move);
 					m_selectedPosition = NULL_POSITION;
-					
+
+					LOGGER.info("Result is " + m_pegBoardState);
+
 					notifyPositionStateListeners(move.getPositionFrom());
+					notifyPositionStateListeners(move.getPositionOver());
 					notifyPositionStateListeners(move.getPositionTo());
 				}
 			}
