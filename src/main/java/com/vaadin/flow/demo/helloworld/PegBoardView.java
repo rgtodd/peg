@@ -15,8 +15,8 @@
  */
 package com.vaadin.flow.demo.helloworld;
 
-import com.peg.model.PegBoard;
-import com.peg.model.PegState;
+import com.pegboard.PegBoardController;
+import com.pegboard.PositionState;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -33,7 +33,7 @@ public class PegBoardView extends VerticalLayout {
 	private static final long serialVersionUID = 1L;
 
 	private Icon[] m_icons;
-	private PegBoard m_pegBoard;
+	private PegBoardController m_pegBoard;
 
 	public PegBoardView() {
 
@@ -50,8 +50,8 @@ public class PegBoardView extends VerticalLayout {
 
 		add(row1, row2, row3, row4, row5);
 
-		m_pegBoard = new PegBoard();
-		m_pegBoard.regsterPegStateListener((position, pegState) -> {
+		m_pegBoard = new PegBoardController();
+		m_pegBoard.regsterPositionStateListener((position, pegState) -> {
 			m_icons[position].getElement().setAttribute("icon",
 					"vaadin:" + getVaadinIcon(pegState).name().toLowerCase().replace('_', '-'));
 		});
@@ -62,7 +62,7 @@ public class PegBoardView extends VerticalLayout {
 		setAlignItems(Alignment.CENTER);
 	}
 
-	private VaadinIcon getVaadinIcon(PegState pegState) {
+	private VaadinIcon getVaadinIcon(PositionState pegState) {
 		switch (pegState) {
 		case OCCUPIED:
 			return VaadinIcon.CIRCLE;

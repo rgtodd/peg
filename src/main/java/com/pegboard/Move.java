@@ -1,4 +1,4 @@
-package com.peg.model;
+package com.pegboard;
 
 public class Move {
 

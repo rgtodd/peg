@@ -1,4 +1,4 @@
-package com.peg.model;
+package com.pegboard;
 
 import java.util.HashSet;
 import java.util.Set;
