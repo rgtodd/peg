@@ -1,43 +1,39 @@
-package com.pegboard.view;
+package com.pegboard.ui.views.peggame;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import com.pegboard.PegBoardController;
 import com.pegboard.PositionState;
+import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.HtmlImport;
-import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.polymertemplate.Id;
+import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.templatemodel.TemplateModel;
 
-/**
- *
- * Defines the Vaadin view used for the peg board game.
- * 
- * @author rtodd
- *
- */
-@HtmlImport("styles/shared-styles.html")
+@Tag("peg-game")
+@HtmlImport("src/views/peggame/peg-game.html")
 @Route("")
-public class PegBoardView extends VerticalLayout {
+public class PegGame extends PolymerTemplate<PegGame.PegGameModel> {
+
 	private static final long serialVersionUID = 1L;
+
+	@Id("ctrlBody")
+	private VerticalLayout ctrlBody;
 
 	private Icon[] m_icons;
 	private Button[] m_buttons;
 	private Map<Button, Integer> m_buttonPositions = new HashMap<>();
 	private PegBoardController m_pegBoardController;
 
-	public PegBoardView() {
-
-		// Create heading view elements.
-		{
-			H1 h1 = new H1("Peg Board");
-			add(h1);
-		}
+	public PegGame() {
 
 		// Create peg board view elements.
 		{
@@ -64,7 +60,7 @@ public class PegBoardView extends VerticalLayout {
 			HorizontalLayout row5 = new HorizontalLayout(m_buttons[10], m_buttons[11], m_buttons[12], m_buttons[13],
 					m_buttons[14]);
 
-			add(row1, row2, row3, row4, row5);
+			ctrlBody.add(row1, row2, row3, row4, row5);
 		}
 
 		// Create footer view elements.
@@ -75,13 +71,13 @@ public class PegBoardView extends VerticalLayout {
 				m_pegBoardController.initialize();
 			});
 
-			add(buttonReset);
+			ctrlBody.add(buttonReset);
 		}
 
 		// Set other view properties.
 		{
-			setHeight("100vh"); // 100% of the viewport height.
-			setAlignItems(Alignment.CENTER);
+			ctrlBody.setHeight("100vh"); // 100% of the viewport height.
+			ctrlBody.setAlignItems(Alignment.CENTER);
 
 		}
 
@@ -116,4 +112,9 @@ public class PegBoardView extends VerticalLayout {
 			return VaadinIcon.CLOSE;
 		}
 	}
+
+	public interface PegGameModel extends TemplateModel {
+
+	}
+
 }

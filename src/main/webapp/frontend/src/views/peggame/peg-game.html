@@ -1,0 +1,33 @@
+<link rel="import" href="../../../bin/bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/vaadin-button/src/vaadin-button.html">
+<link rel="import" href="../../../bower_components/vaadin-form-layout/src/vaadin-form-item.html">
+<link rel="import" href="../../../bower_components/vaadin-form-layout/src/vaadin-form-layout.html">
+<link rel="import" href="../../../bower_components/vaadin-item/src/vaadin-item.html">
+<link rel="import" href="../../../bower_components/vaadin-ordered-layout/src/vaadin-horizontal-layout.html">
+<link rel="import" href="../../../bower_components/vaadin-ordered-layout/src/vaadin-vertical-layout.html">
+<dom-module id="peg-game"> 
+<template>
+<style include="shared-styles">
+	:host {
+		display: block;
+	}
+	</style>
+<vaadin-vertical-layout id="ctrlBody" style="width: 100%; height: 100%;">
+	<h1>Peg Board</h1>
+</vaadin-vertical-layout>
+</template> 
+<script>
+        class PegGame extends Polymer.Element {
+            static get is() {
+                return 'peg-game';
+            }
+
+            static get properties() {
+                return {
+                    // Declare your properties here.
+                };
+            }
+        }
+        customElements.define(PegGame.is, PegGame);
+ </script>
+ </dom-module>
